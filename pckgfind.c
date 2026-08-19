@@ -21,7 +21,7 @@ void search_packages(const char *query) {
         snprintf(command, sizeof(command), "apt-cache search --names-only %s | head -20", query);
     }
     else if (system("which pacman > /dev/null 2>&1") == 0) {
-        snprintf(command, sizeof(command), "pacman -Ssq %s | head -20", query);
+        snprintf(command, sizeof(command), "pacman -Ss %s | grep '^[^ ]*/%s' | head -20", query, query);
     }
     else if (system("which dnf > /dev/null 2>&1") == 0) {
         snprintf(command, sizeof(command), "dnf search --all --name %s | head -20", query);
@@ -81,18 +81,6 @@ void search_packages(const char *query) {
             printf(COLOR_BOLD COLOR_BLUE "%s" COLOR_RESET, name);
             printf(" " COLOR_CYAN "(%s)" COLOR_RESET, repo);
         }
-        else if (space != NULL) {
-            char name[128], rest[1024];
-            int name_len = space - line;
-            
-            strncpy(name, line, name_len);
-            name[name_len] = '\0';
-            
-            strcpy(rest, space + 1);
-            
-            printf(COLOR_BOLD COLOR_BLUE "%s" COLOR_RESET, name);
-            printf(" %s", rest);
-        }
         else {
             printf(COLOR_BOLD COLOR_BLUE "%s" COLOR_RESET, line);
         }
@@ -108,8 +96,9 @@ void search_packages(const char *query) {
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        printf(COLOR_BOLD "Use: %s <name_package>\n" COLOR_RESET, argv[0]);
-        printf(COLOR_CYAN "Example: %s libreoffice\n" COLOR_RESET, argv[0]);
+        printf(COLOR_BOLD "Uzycie: %s <nazwa_pakietu>\n" COLOR_RESET, argv[0]);
+        printf(COLOR_CYAN "Przyklad: %s rar\n" COLOR_RESET, argv[0]);
+        printf(COLOR_YELLOW "Przyklad: %s vim\n" COLOR_RESET, argv[0]);
         return 1;
     }
     
