@@ -24,7 +24,7 @@ A simple, fast, and colorful command-line tool to search for packages in your Li
 ### Quick Install
 
 ```bash
-git clone https://github.com/yourusername/pckgfind.git
+git clone https://github.com/hrydxd/package_finder.git
 cd pckgfind
 chmod +x install.sh
 ./install.sh
